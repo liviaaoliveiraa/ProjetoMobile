@@ -2,7 +2,7 @@ import { Link } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const logo = require("../../assets/logoooo.png");
+const logo = require("../../assets/snoopyaviao.png");
 
 export default function HomeScreen() {
   return (
@@ -23,15 +23,15 @@ export default function HomeScreen() {
 
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Do que gosto?</Text>
-          <Text style={styles.cardItem}>• JavaScript habilitado</Text>
-          <Text style={styles.cardItem}>• Rotas com expo-router</Text>
-          <Text style={styles.cardItem}>• Abas e modal de exemplo</Text>
-          <Text style={styles.cardItem}>• Scripts para Android, iOS e Web</Text>
+          <Text style={styles.cardItem}>• Do meu Cachorro (max) </Text>
+          <Text style={styles.cardItem}>• Dormir</Text>
+          <Text style={styles.cardItem}>• Snoopy's</Text>
+          <Text style={styles.cardItem}>• E eu amo DS!</Text>
         </View>
 
         <Link href="/modal" asChild>
           <Pressable style={styles.button}>
-            <Text style={styles.buttonText}>Abrir modal de exemplo</Text>
+            <Text style={styles.buttonText}>Clique aqui para ver o max, pfvr</Text>
           </Pressable>
         </Link>
       </View>
