@@ -11,7 +11,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 
-const API_KEY = "cv_lm57uHPiweJE86C2n-hopn4vVBPW09ZHrGykcNiZF_7OzoPgNRsKSl4IgjuP6PN2";
+const API_KEY = "cv_3d3cWFUO8AceqWTLrQlO11CfZtpqAHjuKXY-PruTCbbcIfTkGC7f1ETn6AnL9ifL";
 
 const api = axios.create({
     baseURL: "https://api-ds.codeverse.dev.br",
@@ -37,8 +37,8 @@ export default function LivrosCriarScreen() {
         }
 
         setEnviando(true);
-        try {
 
+        try {
             const páginasFormatadas = parseInt(paginas, 10);
 
             const resposta = await api.post("/api/livros", {
@@ -52,6 +52,7 @@ export default function LivrosCriarScreen() {
             });
 
             Alert.alert("Livro criado!", resposta.data.title);
+
             setTitulo("");
             setDescricao("");
             setImagemUrl("");
@@ -61,7 +62,10 @@ export default function LivrosCriarScreen() {
         } catch (e) {
             console.log("Erro da API:", e.response?.data || e.message);
 
-            const mensagemErro = e.response?.data?.message || e.response?.data?.error || "Verifique os dados enviados.";
+            const mensagemErro =
+                e.response?.data?.message ||
+                e.response?.data?.error ||
+                "Verifique os dados enviados.";
 
             Alert.alert("Erro ao criar livro", mensagemErro);
         } finally {
@@ -72,10 +76,9 @@ export default function LivrosCriarScreen() {
     return (
         <SafeAreaView style={styles.safeArea}>
             <ScrollView contentContainerStyle={styles.conteudo}>
-                <View style={styles.header}>
-                    <Text style={styles.tituloPagina}>Criar livro</Text>
-                    <Text style={styles.subtitulo}>POST /api/livros</Text>
-                </View>
+
+                <Text style={styles.tituloPagina}>Criar livro</Text>
+                <Text style={styles.subtitulo}>POST /api/livros</Text>
 
                 <Text style={styles.rotulo}>Título</Text>
                 <TextInput
@@ -101,7 +104,9 @@ export default function LivrosCriarScreen() {
                     placeholder="Ex: https://exemplo.com/fantasma-da-opera.jpg"
                 />
 
-                <Text style={styles.secao}>Campos específicos do tema livros</Text>
+                <Text style={styles.secao}>
+                    Campos específicos do tema livros
+                </Text>
 
                 <Text style={styles.rotulo}>Gênero</Text>
                 <TextInput
@@ -117,6 +122,7 @@ export default function LivrosCriarScreen() {
                     value={paginas}
                     onChangeText={setPaginas}
                     placeholder="Ex: 320"
+                    keyboardType="numeric"
                 />
 
                 <Text style={styles.rotulo}>Autor(a)</Text>
@@ -127,9 +133,16 @@ export default function LivrosCriarScreen() {
                     placeholder="Ex: Gaston Leroux"
                 />
 
-                <Pressable style={styles.botao} onPress={criarLivro} disabled={enviando}>
-                    <Text style={styles.botaoTexto}>{enviando ? "Enviando..." : "Criar livro"}</Text>
+                <Pressable
+                    style={styles.botao}
+                    onPress={criarLivro}
+                    disabled={enviando}
+                >
+                    <Text style={styles.botaoTexto}>
+                        {enviando ? "Enviando..." : "Criar livro"}
+                    </Text>
                 </Pressable>
+
             </ScrollView>
         </SafeAreaView>
     );
@@ -138,7 +151,7 @@ export default function LivrosCriarScreen() {
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
-        backgroundColor: "#576475",
+        backgroundColor: "#cbdbe4",
     },
 
     conteudo: {
@@ -146,29 +159,23 @@ const styles = StyleSheet.create({
         paddingBottom: 48,
     },
 
-    header: {
-        marginBottom: 20,
-        padding: 20,
-        borderRadius: 20,
-        backgroundColor: "#90baf1",
-    },
-
     tituloPagina: {
         fontSize: 28,
         fontWeight: "800",
-        color: "#ffffff",
+        color: "#102542",
+        marginBottom: 4,
     },
 
     subtitulo: {
         fontSize: 14,
-        color: "#d0e2ff",
-        marginTop: 4,
+        color: "#102542",
+        marginBottom: 20,
     },
 
     secao: {
         fontSize: 18,
         fontWeight: "700",
-        color: "#ffffff",
+        color: "#102542",
         marginTop: 8,
         marginBottom: 10,
     },
@@ -176,7 +183,7 @@ const styles = StyleSheet.create({
     rotulo: {
         fontSize: 13,
         fontWeight: "700",
-        color: "#edf5ff",
+        color: "#102542",
         marginBottom: 5,
     },
 

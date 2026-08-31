@@ -11,24 +11,20 @@ export default function Exemplo() {
     >
       <View style={styles.content}>
 
-        {/* Decoração do topo */}
         <Text style={styles.decoracao}>✦ ˚｡⋆♡⋆｡˚ ✦</Text>
 
-        {/* Título */}
         <Text style={styles.titulo}>Eu e meu mor 💙</Text>
 
         <Text style={styles.subtitulo}>
           te amo amor da minha vida!
         </Text>
 
-        {/* Decoração antes da foto */}
         <View style={styles.decoracaoFoto}>
           <Text style={styles.coracao}>♡</Text>
           <View style={styles.linha} />
           <Text style={styles.coracao}>♡</Text>
         </View>
 
-        {/* Foto */}
         <View style={styles.fotoContainer}>
           <Image
             source={foto}
@@ -37,7 +33,6 @@ export default function Exemplo() {
           />
         </View>
 
-        {/* Texto */}
         <View style={styles.textoContainer}>
           <Text style={styles.texto}>
             Lívia & Vitor Nunes
@@ -49,7 +44,6 @@ export default function Exemplo() {
           </Text>
         </View>
 
-        {/* Decoração final */}
         <Text style={styles.decoracaoFinal}>
           ˚₊‧꒰ა ♡ ໒꒱ ‧₊˚
         </Text>
