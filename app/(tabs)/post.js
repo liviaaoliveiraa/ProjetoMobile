@@ -11,7 +11,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 
-const API_KEY = "cv_3d3cWFUO8AceqWTLrQlO11CfZtpqAHjuKXY-PruTCbbcIfTkGC7f1ETn6AnL9ifL";
+const API_KEY = "cv_wgZBkYts23e3il7AgF2AZBVc59ESj2BoFkf55pfyU_IWwT2bDv7gpOn6tNXP4kb6";
 
 const api = axios.create({
     baseURL: "https://api-ds.codeverse.dev.br",
@@ -24,43 +24,77 @@ export default function LivrosCriarScreen() {
     const [titulo, setTitulo] = useState("");
     const [descricao, setDescricao] = useState("");
     const [imagemUrl, setImagemUrl] = useState("");
-    const [paginas, setPaginas] = useState("");
+    const [numeroPaginas, setNumeroPaginas] = useState("");
+    const [anoPublicacao, setAnoPublicacao] = useState("");
     const [genero, setGenero] = useState("");
     const [autor, setAutor] = useState("");
 
     const [enviando, setEnviando] = useState(false);
 
     async function criarLivro() {
-        if (!titulo) {
-            Alert.alert("Preencha pelo menos o título.");
+        if (
+            !titulo ||
+            !descricao ||
+            !imagemUrl ||
+            !numeroPaginas ||
+            !anoPublicacao ||
+            !genero ||
+            !autor
+        ) {
+            Alert.alert("Atenção", "Preencha todos os campos.");
+            return;
+        }
+
+        const paginasFormatadas = parseInt(numeroPaginas, 10);
+        const anoFormatado = parseInt(anoPublicacao, 10);
+
+        if (isNaN(paginasFormatadas)) {
+            Alert.alert("Erro", "Número de páginas inválido.");
+            return;
+        }
+
+        if (isNaN(anoFormatado)) {
+            Alert.alert("Erro", "Ano de publicação inválido.");
             return;
         }
 
         setEnviando(true);
 
         try {
-            const páginasFormatadas = parseInt(paginas, 10);
-
-            const resposta = await api.post("/api/livros", {
+            const dadosLivro = {
                 title: titulo,
                 description: descricao,
                 status: "Publicado",
                 imageUrl: imagemUrl,
-                autor,
-                paginas: isNaN(páginasFormatadas) ? 120 : páginasFormatadas,
-                genero,
-            });
+                autor: autor,
+                numero_paginas: paginasFormatadas,
+                ano_publicacao: anoFormatado,
+                genero: genero,
+            };
 
-            Alert.alert("Livro criado!", resposta.data.title);
+            console.log("Enviando para API:", dadosLivro);
+
+            const resposta = await api.post("/api/livros", dadosLivro);
+
+            console.log("Resposta da API:", resposta.data);
+
+            Alert.alert(
+                "Livro criado!",
+                resposta.data?.title || "Livro criado com sucesso."
+            );
 
             setTitulo("");
             setDescricao("");
             setImagemUrl("");
+            setNumeroPaginas("");
+            setAnoPublicacao("");
             setGenero("");
-            setPaginas("");
             setAutor("");
         } catch (e) {
-            console.log("Erro da API:", e.response?.data || e.message);
+            console.log(
+                "Erro da API:",
+                e.response?.data || e.message
+            );
 
             const mensagemErro =
                 e.response?.data?.message ||
@@ -78,22 +112,27 @@ export default function LivrosCriarScreen() {
             <ScrollView contentContainerStyle={styles.conteudo}>
 
                 <Text style={styles.tituloPagina}>Criar livro</Text>
-                <Text style={styles.subtitulo}>POST /api/livros</Text>
+                <Text style={styles.subtitulo}>
+                    Cadastre um novo livro
+                </Text>
 
                 <Text style={styles.rotulo}>Título</Text>
                 <TextInput
                     style={styles.campo}
                     value={titulo}
                     onChangeText={setTitulo}
-                    placeholder="Ex: Fantasma da Ópera"
+                    placeholder="Ex: O Fantasma da Ópera"
+                    placeholderTextColor="#829ab1"
                 />
 
                 <Text style={styles.rotulo}>Descrição</Text>
                 <TextInput
-                    style={styles.campo}
+                    style={[styles.campo, styles.campoDescricao]}
                     value={descricao}
                     onChangeText={setDescricao}
                     placeholder="Ex: Um romance sobre um fantasma que assombra uma ópera."
+                    placeholderTextColor="#829ab1"
+                    multiline
                 />
 
                 <Text style={styles.rotulo}>URL da imagem</Text>
@@ -101,11 +140,14 @@ export default function LivrosCriarScreen() {
                     style={styles.campo}
                     value={imagemUrl}
                     onChangeText={setImagemUrl}
-                    placeholder="Ex: https://exemplo.com/fantasma-da-opera.jpg"
+                    placeholder="https://exemplo.com/imagem.jpg"
+                    placeholderTextColor="#829ab1"
+                    autoCapitalize="none"
+                    keyboardType="url"
                 />
 
                 <Text style={styles.secao}>
-                    Campos específicos do tema livros
+                    Campos específicos do livro
                 </Text>
 
                 <Text style={styles.rotulo}>Gênero</Text>
@@ -113,15 +155,27 @@ export default function LivrosCriarScreen() {
                     style={styles.campo}
                     value={genero}
                     onChangeText={setGenero}
-                    placeholder="Romance Gótico"
+                    placeholder="Ex: Romance Gótico"
+                    placeholderTextColor="#829ab1"
                 />
 
                 <Text style={styles.rotulo}>Número de páginas</Text>
                 <TextInput
                     style={styles.campo}
-                    value={paginas}
-                    onChangeText={setPaginas}
+                    value={numeroPaginas}
+                    onChangeText={setNumeroPaginas}
                     placeholder="Ex: 320"
+                    placeholderTextColor="#829ab1"
+                    keyboardType="numeric"
+                />
+
+                <Text style={styles.rotulo}>Ano de publicação</Text>
+                <TextInput
+                    style={styles.campo}
+                    value={anoPublicacao}
+                    onChangeText={setAnoPublicacao}
+                    placeholder="Ex: 1844"
+                    placeholderTextColor="#829ab1"
                     keyboardType="numeric"
                 />
 
@@ -130,11 +184,15 @@ export default function LivrosCriarScreen() {
                     style={styles.campo}
                     value={autor}
                     onChangeText={setAutor}
-                    placeholder="Ex: Gaston Leroux"
+                    placeholder="Ex: Joaquim Manuel de Macedo"
+                    placeholderTextColor="#829ab1"
                 />
 
                 <Pressable
-                    style={styles.botao}
+                    style={[
+                        styles.botao,
+                        enviando && styles.botaoDesativado,
+                    ]}
                     onPress={criarLivro}
                     disabled={enviando}
                 >
@@ -199,6 +257,11 @@ const styles = StyleSheet.create({
         color: "#334e68",
     },
 
+    campoDescricao: {
+        minHeight: 100,
+        textAlignVertical: "top",
+    },
+
     botao: {
         backgroundColor: "#102542",
         paddingVertical: 16,
@@ -208,9 +271,14 @@ const styles = StyleSheet.create({
         marginTop: 8,
     },
 
+    botaoDesativado: {
+        opacity: 0.6,
+    },
+
     botaoTexto: {
         fontSize: 16,
         color: "#ffffff",
         fontWeight: "700",
     },
 });
+
