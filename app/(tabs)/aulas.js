@@ -1,32 +1,66 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const lessons = [
-  "Criar componentes reutilizáveis",
-  "Consumir APIs com fetch",
-  "Organizar navegação por arquivos",
-  "Trabalhar com estado e formulários",
+const curiosidades = [
+  {
+    emoji: "🎲",
+    titulo: "Ordem Paranormal",
+    texto: "Eu amo Ordem Paranormal e amo o cellbit, eba.",
+  },
+  {
+    emoji: "🍦",
+    titulo: "Baunilha",
+    texto: "Eu amo baunilha, é um dos meus sabores e cheiros favoritos.",
+  },
+  {
+    emoji: "💙",
+    titulo: "Minha cor favorita",
+    texto: "Eu amo azul. É simplesmente a melhor cor do mundo.",
+  },
+  {
+    emoji: "🇺🇸",
+    titulo: "Professora de inglês",
+    texto: "Eu dou aulas de inglês para crianças, matriculem seus filhos na Fisk.",
+  },
 ];
 
 export default function LessonsScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        <Text style={styles.title}>Sugestão de trilha</Text>
-        <Text style={styles.description}>
-          Esta aba já pode servir como ponto de partida para exercícios e
-          atividades práticas.
-        </Text>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.header}>
+          <Text style={styles.title}>Curiosidades sobre mim</Text>
+
+          <Text style={styles.description}>
+            Eba!
+          </Text>
+        </View>
 
         <View style={styles.list}>
-          {lessons.map((lesson, index) => (
-            <View key={lesson} style={styles.listItem}>
-              <Text style={styles.badge}>{index + 1}</Text>
-              <Text style={styles.listText}>{lesson}</Text>
+          {curiosidades.map((curiosidade) => (
+            <View key={curiosidade.titulo} style={styles.listItem}>
+              <View style={styles.emojiContainer}>
+                <Text style={styles.emoji}>{curiosidade.emoji}</Text>
+              </View>
+
+              <View style={styles.textContainer}>
+                <Text style={styles.listTitle}>
+                  {curiosidade.titulo}
+                </Text>
+
+                <Text style={styles.listText}>
+                  {curiosidade.texto}
+                </Text>
+              </View>
             </View>
           ))}
         </View>
-      </View>
+
+        <Text style={styles.decoracao}>✦ ˚｡⋆♡⋆｡˚ ✦</Text>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -34,48 +68,81 @@ export default function LessonsScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#fffdf7",
+    backgroundColor: "#cbdbe4",
   },
+
   container: {
-    flex: 1,
     padding: 24,
-    gap: 16,
+    paddingBottom: 48,
+    gap: 20,
   },
+
+  header: {
+    paddingVertical: 4,
+  },
+
   title: {
     fontSize: 28,
     fontWeight: "800",
-    color: "#3d2c00",
+    color: "#102542",
+    textAlign: "center",
   },
+
   description: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: "#5f4b1b",
+    fontSize: 15,
+    lineHeight: 22,
+    color: "#102542",
+    marginTop: 6,
+    textAlign: "center",
   },
+
   list: {
     gap: 12,
   },
+
   listItem: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
+    gap: 14,
     padding: 16,
-    borderRadius: 18,
+    borderRadius: 16,
     backgroundColor: "#ffffff",
   },
-  badge: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    textAlign: "center",
-    lineHeight: 32,
-    fontSize: 14,
-    fontWeight: "700",
-    color: "#ffffff",
-    backgroundColor: "#f59e0b",
+
+  emojiContainer: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#90baf1",
   },
-  listText: {
+
+  emoji: {
+    fontSize: 23,
+  },
+
+  textContainer: {
     flex: 1,
-    fontSize: 15,
-    color: "#3d2c00",
+    gap: 4,
+  },
+
+  listTitle: {
+    fontSize: 17,
+    fontWeight: "700",
+    color: "#102542",
+  },
+
+  listText: {
+    fontSize: 14,
+    lineHeight: 20,
+    color: "#102542",
+  },
+
+  decoracao: {
+    fontSize: 22,
+    color: "#edf3fc",
+    textAlign: "center",
+    marginTop: 4,
   },
 });

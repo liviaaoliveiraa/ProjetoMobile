@@ -136,34 +136,74 @@ export default function LivrosCriarScreen() {
 }
 
 const styles = StyleSheet.create({
-    safeArea: { flex: 1, backgroundColor: "#f8fbff" },
-    conteudo: { padding: 24, paddingBottom: 48 },
-    header: { marginBottom: 16 },
-    tituloPagina: { fontSize: 24, fontWeight: "800", color: "#7c3ca1" },
-    subtitulo: { fontSize: 14, color: "#5f6b7a", marginTop: 2 },
-    secao: {
-        fontSize: 14,
-        fontWeight: "700",
-        color: "#102542",
-        marginTop: 8,
-        marginBottom: 8,
+    safeArea: {
+        flex: 1,
+        backgroundColor: "#576475",
     },
 
-    rotulo: { fontSize: 13, fontWeight: "600", color: "#334155", marginBottom: 4 },
+    conteudo: {
+        padding: 24,
+        paddingBottom: 48,
+    },
+
+    header: {
+        marginBottom: 20,
+        padding: 20,
+        borderRadius: 20,
+        backgroundColor: "#90baf1",
+    },
+
+    tituloPagina: {
+        fontSize: 28,
+        fontWeight: "800",
+        color: "#ffffff",
+    },
+
+    subtitulo: {
+        fontSize: 14,
+        color: "#d0e2ff",
+        marginTop: 4,
+    },
+
+    secao: {
+        fontSize: 18,
+        fontWeight: "700",
+        color: "#ffffff",
+        marginTop: 8,
+        marginBottom: 10,
+    },
+
+    rotulo: {
+        fontSize: 13,
+        fontWeight: "700",
+        color: "#edf5ff",
+        marginBottom: 5,
+    },
+
     campo: {
         borderWidth: 1,
         borderColor: "#cbd5e1",
-        borderRadius: 8,
-        paddingHorizontal: 12,
-        paddingVertical: 10,
-        marginBottom: 12,
-        backgroundColor: "white",
+        borderRadius: 12,
+        paddingHorizontal: 14,
+        paddingVertical: 12,
+        marginBottom: 14,
+        backgroundColor: "#ffffff",
+        fontSize: 15,
+        color: "#334e68",
     },
+
     botao: {
-        backgroundColor: "#85a0ad",
-        paddingVertical: 14,
-        borderRadius: 10,
+        backgroundColor: "#102542",
+        paddingVertical: 16,
+        paddingHorizontal: 20,
+        borderRadius: 16,
         alignItems: "center",
+        marginTop: 8,
     },
-    botaoTexto: { color: "white", fontWeight: "700" },
+
+    botaoTexto: {
+        fontSize: 16,
+        color: "#ffffff",
+        fontWeight: "700",
+    },
 });

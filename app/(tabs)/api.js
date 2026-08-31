@@ -4,7 +4,7 @@ import { View, Text, Image, ActivityIndicator, ScrollView, StyleSheet } from "re
 import axios from "axios" // lib usada pra fazer chamadas HTTP para API
 import { SafeAreaView } from "react-native-safe-area-context" // evita que conteudo fique embaixo do notch/barra do celular
 
-const API_KEY = "cv_9Rn5pdHFi77jBWjA4oA9JqzSG0zT6ONyQ75Vl_y_LTyGe54XmWz0Vkl03Z2g1Bpn"
+const API_KEY = "cv_3d3cWFUO8AceqWTLrQlO11CfZtpqAHjuKXY-PruTCbbcIfTkGC7f1ETn6AnL9ifL"
 
 const api = axios.create({
     baseURL: "https://api-ds.codeverse.dev.br",
@@ -89,7 +89,7 @@ export default function HeroisListarScreen() {
 }
 
 const styles = StyleSheet.create({
-    safeArea: { flex: 1, backgroundColor: "#f8fbff" }, // ocupa a tela toda, cor de fundo clara
+    safeArea: { flex: 1, backgroundColor: "#cbdbe4" }, // ocupa a tela toda, cor de fundo clara
     conteudo: { padding: 24, paddingBottom: 48 }, // respiro nas bordas do conteúdo
     header: { marginBottom: 16 }, // espaço abaixo do cabeçalho
     tituloPagina: { fontSize: 24, fontWeight: "800", color: "#102542" }, // título grande e escuro
@@ -106,6 +106,6 @@ const styles = StyleSheet.create({
     },
     imagem: { width: 64, height: 64 }, // tamanho fixo da foto do herói
     info: { flex: 1, justifyContent: "center", paddingRight: 12 }, // ocupa o espaço que sobra ao lado da imagem
-    titulo: { fontSize: 16, fontWeight: "700" }, // nome do herói em destaque
+    titulo: { fontSize: 16, fontWeight: "700", color: "#102542" }, // nome do herói em destaque
     categoria: { fontSize: 13, color: "#64748b" }, // categoria/ano em cinza, menor
 });
